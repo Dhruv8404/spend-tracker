@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spend Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>Spend Tracker</h1>
+            <p class="subtitle">Backend Technical Assignment - Django & DRF</p>
+        </header>
+
+        <!-- Summary Metrics Dashboard -->
+        <section class="summary-section">
+            <h2>Financial Summary</h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-label">Total Spend</span>
+                    <span class="metric-value" id="total-spend">₹0.00</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Current Month</span>
+                    <span class="metric-value" id="current-month-spend">₹0.00</span>
+                    <span class="metric-subtext" id="current-month-period">-</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Previous Month</span>
+                    <span class="metric-value" id="previous-month-spend">₹0.00</span>
+                    <span class="metric-subtext" id="previous-month-period">-</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Month-over-Month</span>
+                    <span class="metric-value" id="mom-percentage">0%</span>
+                    <span class="metric-subtext" id="mom-difference">₹0.00</span>
+                </div>
+            </div>
+
+            <div class="summary-details">
+                <div class="category-summary-box">
+                    <h3>Spend by Category</h3>
+                    <div id="category-list" class="category-list">
+                        <p class="empty-state">No category spending data yet.</p>
+                    </div>
+                </div>
+
+                <div class="insights-summary-box">
+                    <h3>Spending Insights</h3>
+                    <div id="insights-list" class="insights-list">
+                        <p class="empty-state">No high spending increases detected.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Layout: Form & List -->
+        <div class="content-grid">
+            <!-- Add Expense Form -->
+            <section class="form-section">
+                <h2>Add New Expense</h2>
+                <div id="alert-box" class="alert-box hidden"></div>
+                <form id="expense-form" novalidate>
+                    <div class="form-group">
+                        <label for="amount">Amount (₹) <span class="required">*</span></label>
+                        <input type="number" id="amount" step="0.01" min="0.01" placeholder="e.g. 500" required>
+                        <span class="field-error" id="error-amount"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Category <span class="required">*</span></label>
+                        <input type="text" id="category" placeholder="e.g. Food, Travel, Shopping" required>
+                        <span class="field-error" id="error-category"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Date <span class="required">*</span></label>
+                        <input type="date" id="date" required>
+                        <span class="field-error" id="error-date"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="note">Note (Optional)</label>
+                        <textarea id="note" rows="2" placeholder="e.g. Lunch with team"></textarea>
+                        <span class="field-error" id="error-note"></span>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class="btn-primary">Add Expense</button>
+                </form>
+            </section>
+
+            <!-- Expense List & Filters -->
+            <section class="list-section">
+                <div class="list-header">
+                    <h2>Expense History</h2>
+                    <button type="button" id="toggle-filters-btn" class="btn-secondary">Filters</button>
+                </div>
+
+                <div id="filter-controls" class="filter-controls">
+                    <div class="filter-group">
+                        <label for="filter-category">Category</label>
+                        <input type="text" id="filter-category" placeholder="Filter by category">
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-start-date">Start Date</label>
+                        <input type="date" id="filter-start-date">
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-end-date">End Date</label>
+                        <input type="date" id="filter-end-date">
+                    </div>
+                    <div class="filter-buttons">
+                        <button type="button" id="apply-filters-btn" class="btn-small">Apply</button>
+                        <button type="button" id="clear-filters-btn" class="btn-small btn-outline">Clear</button>
+                    </div>
+                </div>
+
+                <div id="expense-list-container" class="expense-list">
+                    <p class="empty-state">Loading expenses...</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
